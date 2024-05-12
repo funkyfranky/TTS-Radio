@@ -4,6 +4,7 @@ from pathlib import Path
 from google.cloud import texttospeech
 from pydub import AudioSegment, generators, silence
 import pandas as pd
+import json
 
 
 # Set google credentials from JSON file
@@ -18,7 +19,7 @@ NOISE_BOOST  = -25   # Volume adjustment [dB] for white noise
 VOLUME       =  10   # Volume adjustment [dB] for whole autio after (filters and noise)
 
 DEFAULT_VOICE="en-US-Studio-O"
-DEFAULT_VOICE="en-US-Standard-A"
+DEFAULT_VOICE="en-US-Standard-A" 
 
 class TTS():
     def __init__(self, file: str, directory:str, voice: str=None, volume:int=VOLUME, filter:int=None, highpass=None, lowpass=None, noise=None):
@@ -211,4 +212,6 @@ if __name__=='__main__':
         df["duration"]=duration
 
         #df.to_excel(directory / "result.xlsx")
-        df.to_csv(directory / "parameters.csv", index=False, sep=";")
+        df.to_csv(directory / "parameters.csv", index=False, sep=";", na_rep="nil")
+        df.to_json(directory / "parameters.json", index=False, orient="table", indent=4)
+        #df.to_xml
