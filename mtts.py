@@ -2,7 +2,7 @@ import os
 import shutil
 from pathlib import Path
 from google.cloud import texttospeech
-from pydub import AudioSegment, generators, silence
+from pydub import AudioSegment, generators, silence, effects
 import pandas as pd
 import json
 
@@ -14,12 +14,14 @@ os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "F:/google-tts.json"
 HIGHPASS=4000
 LOWPASS=3000
 
-FILTER_BOOST =  10   # Volume adjustment [dB] for high/low pass filtered
+FILTER_BOOST =  20   # Volume adjustment [dB] for high/low pass filtered
 NOISE_BOOST  = -25   # Volume adjustment [dB] for white noise
-VOLUME       =  10   # Volume adjustment [dB] for whole autio after (filters and noise)
+VOLUME       =   5   # Volume adjustment [dB] for whole autio after (filters and noise)
 
 DEFAULT_VOICE="en-US-Studio-O"
-DEFAULT_VOICE="en-US-Standard-A" 
+DEFAULT_VOICE="en-US-Standard-A"
+DEFAULT_VOICE="en-GB-Wavenet-F"
+#DEFAULT_VOICE="ru-RU-Wavenet-E"
 
 class TTS():
     def __init__(self, file: str, directory:str, voice: str=None, volume:int=VOLUME, filter:int=None, highpass=None, lowpass=None, noise=None):
@@ -61,26 +63,27 @@ class TTS():
         #out_Wave = AudioSegment.from_wav(self._OUT_WAV) - self._click_volume_decrease  # reduce volume
 
         # Apply high and low pass filters
-        if self.highpass>=0:
-            audio=audio.high_pass_filter(self.highpass)
-        if self.lowpass>=0:
-            audio=audio.low_pass_filter(self.lowpass)
+        for _ in range(3):
+            if self.highpass>=0:
+                print(f"highpass = {self.highpass}")
+                audio=audio.high_pass_filter(self.highpass)
+            if self.lowpass>=0:
+                print(f"lowpass = {self.lowpass}")
+                audio=audio.low_pass_filter(self.lowpass)
+            audio=effects.normalize(audio)
 
         # Strip leading/trailing silence
         audio = _strip_silence(audio)
 
-        #if self.highpass>=0 or self.lowpass>=0:
-        audio=audio+self.filter
-
         #combined = in_Wave + filtered + out_Wave  # concatenate
 
-
         # Generate white noise.
-        whiteNoise = generators.WhiteNoise().to_audio_segment(duration=len(audio), volume=self.noise)
+        if False:
+            whiteNoise = generators.WhiteNoise().to_audio_segment(duration=len(audio), volume=self.noise)
 
-        # overlay white noise, dropping WN volume.
-        #audio = audio.overlay(whiteNoise + self.noise)
-        audio = audio.overlay(whiteNoise)
+            # overlay white noise, dropping WN volume.
+            #audio = audio.overlay(whiteNoise + self.noise)
+            audio = audio.overlay(whiteNoise)
 
         # Bumb volume of all audio.
         audio = audio + self.volume

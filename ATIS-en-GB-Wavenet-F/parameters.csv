@@ -1,0 +1,75 @@
+text;filename;subtitle;voice;highpass;lowpass;volume;filter;noise;emphasis;rate;pitch;duration
+Active Runway;ActiveRunway;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.97
+Advice on initial  contact, you have information;AdviceOnInitial;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;2.87
+Airport;Airport;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.66
+Altimeter;Altimeter;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.78
+at;At;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.37
+cloud base;CloudBase;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.83
+ceiling;CloudCeiling;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.45
+broken clouds;CloudsBroken;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;1.01
+few clouds;CloudsFew;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.84
+no clouds;CloudsNo;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.9
+cloud coverage information not available;CloudsNotAvailable;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;2.29
+overcast;CloudsOvercast;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.86
+scattered clouds;CloudsScattered;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;1.15
+decimal;Decimal;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.57
+degrees Celsius;DegreesCelsius;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;1.22
+degrees Fahrenheit;DegreesFahrenheit;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;1.26
+dew point;DewPoint;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.75
+dust;Dust;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.49
+elevation;Elevation;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.63
+end of information;EndOfInformation;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;1.03
+feet;Feet;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.4
+fog;Fog;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.31
+gusting;Gusting;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.43
+hecto pascal;HectoPascal;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;1.13
+hundred;Hundred;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.59
+ILS freuency;ILSFrequency;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;1.35
+inches of mercury;InchesOfMercury;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;1.17
+information;Information;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.72
+inner NDB frequency;InnerNDBFrequency;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;1.71
+kilometers;Kilometers;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.84
+knots;Knots;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.56
+left;Left;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.5
+mega Hertz;MegaHertz;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.96
+meters;Meters;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.67
+meters per second;MetersPerSecond;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;1.28
+miles;Miles;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.69
+millimeters of mercury;MillimetersOfMercury;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;1.43
+minus;Minus;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.66
+Zero;N-0;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.56
+One;N-1;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.4
+Two;N-2;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.37
+Three;N-3;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.29
+Four;N-4;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.32
+Five;N-5;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.33
+Six;N-6;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.57
+Seven;N-7;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.38
+Eight;N-8;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.45
+Niner;N-9;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.49
+nautical miles;NauticalMiles;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;1.21
+none;None;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.42
+outer NDB frequency;OuterNDBFrequency;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;1.78
+PRMG channel;PRMGChannel;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;1.38
+QFE;QFE;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.95
+QNH;QNH;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;1.16
+rain;Rain;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.42
+right;Right;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.47
+RSBN channel;RSBNChannel;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;1.41
+runway length;RunwayLength;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.68
+snow;Snow;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.5
+statute miles;StatuteMiles;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;1.21
+sunrise at;SunriseAt;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;1.03
+sunset at;SunsetAt;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.99
+TACAN channel;TACANChannel;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;1.68
+temperature;Temperature;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.71
+thousand;Thousand;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.6
+thunderstorm;ThunderStorm;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.66
+local time;LocalTime;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.79
+zulu time;TimeZulu;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.79
+tower frequency;TowerFrequency;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;1.07
+visibility;visibility;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.77
+VOR frequency;VORFrequency;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.97
+weather phenomena;WeatherPhenomena;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.88
+wind from;WindFrom;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.56
+zulu;Zulu;nil;en-GB-Wavenet-F;4000.0;3000.0;10.0;10.0;-25.0;nil;nil;nil;0.53

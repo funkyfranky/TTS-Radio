@@ -1,0 +1,5 @@
+text;filename;subtitle;voice;highpass;lowpass;volume;filter;noise;emphasis;rate;pitch;duration
+Advice on initial  contact, you have information;AdviceOnInitial;nil;en-GB-Wavenet-F;4000.0;3000.0;5.0;10.0;-25.0;nil;nil;nil;2.96
+Advice on initial  contact, you have information;AdviceOnInitial_3500-3000;nil;en-GB-Wavenet-F;3500.0;3000.0;5.0;10.0;-25.0;nil;nil;nil;2.95
+Advice on initial  contact, you have information;AdviceOnInitial_3000-3000;nil;en-GB-Wavenet-F;3000.0;3000.0;5.0;10.0;-25.0;nil;nil;nil;2.96
+Advice on initial  contact, you have information;AdviceOnInitial_3000-2000;nil;en-GB-Wavenet-F;3000.0;2000.0;5.0;10.0;-25.0;nil;nil;nil;2.97
