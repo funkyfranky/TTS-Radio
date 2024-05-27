@@ -6,7 +6,6 @@ from pydub import AudioSegment, generators, silence, effects
 import pandas as pd
 import json
 
-
 # Set google credentials from JSON file
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "F:/google-tts.json"
 
@@ -14,25 +13,30 @@ os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "F:/google-tts.json"
 HIGHPASS=4000
 LOWPASS=3000
 
-FILTER_BOOST =  20   # Volume adjustment [dB] for high/low pass filtered
-NOISE_BOOST  = -25   # Volume adjustment [dB] for white noise
-VOLUME       =   5   # Volume adjustment [dB] for whole autio after (filters and noise)
+# Number of times to apply high/low pass filters
+NFILTER=3
 
+# Volume boost
+NOISE_BOOST  = -25   # Volume adjustment [dB] for white noise
+VOLUME       =   0   # Volume adjustment [dB] for whole autio after (filters and noise)
+
+# Default voice
 DEFAULT_VOICE="en-US-Studio-O"
 DEFAULT_VOICE="en-US-Standard-A"
 DEFAULT_VOICE="en-GB-Wavenet-F"
-#DEFAULT_VOICE="ru-RU-Wavenet-E"
+DEFAULT_VOICE="ru-RU-Wavenet-E"
 
 class TTS():
     def __init__(self, file: str, directory:str, voice: str=None, volume:int=VOLUME, filter:int=None, highpass=None, lowpass=None, noise=None):
+
         self.file=file
         self.directory=directory
         self.voice=DEFAULT_VOICE if pd.isna(voice) else voice
         self.volume=int(volume) if pd.notna(volume) else VOLUME
-        self.filter=int(filter) if pd.notna(filter) else FILTER_BOOST
+        self.filter=int(filter) if pd.notna(filter) else NFILTER
         self.highpass=int(highpass) if pd.notna(highpass) else HIGHPASS
         self.lowpass=int(lowpass) if pd.notna(lowpass) else LOWPASS
-        self.noise=int(noise) if pd.notna(noise) else NOISE_BOOST
+        self.noise=int(noise) if pd.notna(noise) else None
 
         if False:
             print(f"File={self.file}")
@@ -54,22 +58,22 @@ class TTS():
 
         # Convinient lambdas found on SO
         _trim_leading_silence: AudioSegment = lambda x: x[silence.detect_leading_silence(x):]
-
         _trim_trailing_silence: AudioSegment = lambda x: _trim_leading_silence(x.reverse()).reverse()
-
         _strip_silence: AudioSegment = lambda x: _trim_trailing_silence(_trim_leading_silence(x))
 
         #in_Wave = AudioSegment.from_wav(self._IN_WAV)   - self._click_volume_decrease  # reduce volume
         #out_Wave = AudioSegment.from_wav(self._OUT_WAV) - self._click_volume_decrease  # reduce volume
 
         # Apply high and low pass filters
-        for _ in range(3):
+        for _ in range(self.filter):
             if self.highpass>=0:
                 print(f"highpass = {self.highpass}")
                 audio=audio.high_pass_filter(self.highpass)
             if self.lowpass>=0:
                 print(f"lowpass = {self.lowpass}")
                 audio=audio.low_pass_filter(self.lowpass)
+
+            # Normalize audio after applying filter(s)
             audio=effects.normalize(audio)
 
         # Strip leading/trailing silence
@@ -77,13 +81,17 @@ class TTS():
 
         #combined = in_Wave + filtered + out_Wave  # concatenate
 
-        # Generate white noise.
-        if False:
+        # White noise
+        if self.noise is not None:
+
+            # Generate white noise
             whiteNoise = generators.WhiteNoise().to_audio_segment(duration=len(audio), volume=self.noise)
 
-            # overlay white noise, dropping WN volume.
-            #audio = audio.overlay(whiteNoise + self.noise)
+            # Overlay white noise
             audio = audio.overlay(whiteNoise)
+
+        # Normalize audio after applying noise
+        audio=effects.normalize(audio)            
 
         # Bumb volume of all audio.
         audio = audio + self.volume
@@ -151,7 +159,7 @@ class TTS():
         # Read mp3 as audio segment.
         audio = AudioSegment.from_mp3(file)
 
-        # Add 
+        # Add filters and white noise
         audio:AudioSegment=self.addRadioNoiseFilters(audio)
 
         # Save as ogg.
@@ -176,7 +184,7 @@ if __name__=='__main__':
 
         print(f"* Processing file {file}")
 
-        COLS=["text", "filename", "subtitle", "voice", "highpass", "lowpass", "volume", "filter", "noise", "emphasis", "rate", "pitch"]
+        COLS=["text", "filename", "subtitle", "voice", "highpass", "lowpass", "nfilter", "volume", "noise", "emphasis", "rate", "pitch"]
 
         # Read excel into data frame
         df = pd.read_excel(file, header=None, names=COLS, skiprows=[0])
@@ -192,12 +200,13 @@ if __name__=='__main__':
             os.mkdir(directory)
         except:
             raise(f"Could not create directory {directory}")
+        print()
 
         duration=[]
         for idx, row in df.iterrows():
             print(f'file={row["filename"]}, voice={row["voice"]}, emphasis={row.emphasis}, rate={row.rate}, pitch={row.pitch}: {row["text"]} ')
 
-            tts=TTS(file=row.filename, directory=directory, voice=row.voice, volume=row.volume, filter=row["filter"], highpass=row.highpass, lowpass=row.lowpass, noise=row.noise)
+            tts=TTS(file=row.filename, directory=directory, voice=row.voice, volume=row.volume, filter=row["nfilter"], highpass=row.highpass, lowpass=row.lowpass, noise=row.noise)
 
             audio=tts.tts(row.text, row.emphasis, row.rate, row.pitch)
 
@@ -214,7 +223,13 @@ if __name__=='__main__':
         # Add duration column
         df["duration"]=duration
 
-        #df.to_excel(directory / "result.xlsx")
+        # Save file
+        print()
+        print("* Saving parameter file as csv and json")
         df.to_csv(directory / "parameters.csv", index=False, sep=";", na_rep="nil")
         df.to_json(directory / "parameters.json", index=False, orient="table", indent=4)
-        #df.to_xml
+        
+
+        print()
+        print("*** FIN ***")
+        print()

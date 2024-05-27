@@ -26,11 +26,11 @@
                 "type":"number"
             },
             {
-                "name":"volume",
+                "name":"nfilter",
                 "type":"number"
             },
             {
-                "name":"filter",
+                "name":"volume",
                 "type":"number"
             },
             {
@@ -50,6 +50,10 @@
                 "type":"number"
             },
             {
+                "name":"filter",
+                "type":"number"
+            },
+            {
                 "name":"duration",
                 "type":"number"
             }
@@ -61,61 +65,97 @@
             "text":"Advice on initial  contact, you have information",
             "filename":"AdviceOnInitial",
             "subtitle":null,
-            "voice":"en-GB-Wavenet-F",
+            "voice":"ru-RU-Wavenet-E",
             "highpass":4000.0,
             "lowpass":3000.0,
-            "volume":5.0,
-            "filter":20.0,
-            "noise":-25.0,
+            "nfilter":null,
+            "volume":0.0,
+            "noise":null,
             "emphasis":null,
             "rate":null,
             "pitch":null,
-            "duration":2.95
+            "filter":3.0,
+            "duration":3.12
         },
         {
             "text":"Advice on initial  contact, you have information",
-            "filename":"AdviceOnInitial_3500-3000",
+            "filename":"AdviceOnInitial_nfilter1",
             "subtitle":null,
-            "voice":"en-GB-Wavenet-F",
-            "highpass":3500.0,
+            "voice":"ru-RU-Wavenet-E",
+            "highpass":4000.0,
             "lowpass":3000.0,
-            "volume":5.0,
-            "filter":20.0,
-            "noise":-25.0,
+            "nfilter":1.0,
+            "volume":0.0,
+            "noise":null,
             "emphasis":null,
             "rate":null,
             "pitch":null,
-            "duration":2.95
+            "filter":1.0,
+            "duration":3.13
         },
         {
             "text":"Advice on initial  contact, you have information",
-            "filename":"AdviceOnInitial_3000-3000",
+            "filename":"AdviceOnInitial_nfilter2",
             "subtitle":null,
-            "voice":"en-GB-Wavenet-F",
-            "highpass":3000.0,
+            "voice":"ru-RU-Wavenet-E",
+            "highpass":4000.0,
             "lowpass":3000.0,
-            "volume":5.0,
-            "filter":20.0,
+            "nfilter":2.0,
+            "volume":0.0,
+            "noise":null,
+            "emphasis":null,
+            "rate":null,
+            "pitch":null,
+            "filter":2.0,
+            "duration":3.13
+        },
+        {
+            "text":"Advice on initial  contact, you have information",
+            "filename":"AdviceOnInitial_noise",
+            "subtitle":null,
+            "voice":"ru-RU-Wavenet-E",
+            "highpass":4000.0,
+            "lowpass":3000.0,
+            "nfilter":null,
+            "volume":0.0,
             "noise":-25.0,
             "emphasis":null,
             "rate":null,
             "pitch":null,
-            "duration":2.95
+            "filter":3.0,
+            "duration":3.12
         },
         {
             "text":"Advice on initial  contact, you have information",
             "filename":"AdviceOnInitial_3000-2000",
             "subtitle":null,
-            "voice":"en-GB-Wavenet-F",
+            "voice":"ru-RU-Wavenet-E",
             "highpass":3000.0,
             "lowpass":2000.0,
-            "volume":5.0,
-            "filter":20.0,
-            "noise":-25.0,
+            "nfilter":null,
+            "volume":0.0,
+            "noise":null,
             "emphasis":null,
             "rate":null,
             "pitch":null,
-            "duration":2.95
+            "filter":3.0,
+            "duration":3.12
+        },
+        {
+            "text":"<lang xml:lang=\"en-US\">Advice on initial  contact, you have information<\/lang>",
+            "filename":"AdviceOnInitial_french",
+            "subtitle":null,
+            "voice":"ru-RU-Wavenet-E",
+            "highpass":4000.0,
+            "lowpass":3000.0,
+            "nfilter":null,
+            "volume":0.0,
+            "noise":null,
+            "emphasis":null,
+            "rate":null,
+            "pitch":null,
+            "filter":3.0,
+            "duration":3.12
         }
     ]
 }
