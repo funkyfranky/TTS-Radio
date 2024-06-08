@@ -4,7 +4,6 @@ from pathlib import Path
 from google.cloud import texttospeech
 from pydub import AudioSegment, generators, silence, effects
 import pandas as pd
-import json
 
 # Set google credentials from JSON file
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "F:/google-tts.json"
@@ -24,16 +23,16 @@ VOLUME       =   0   # Volume adjustment [dB] for whole autio after (filters and
 DEFAULT_VOICE="en-US-Studio-O"
 DEFAULT_VOICE="en-US-Standard-A"
 DEFAULT_VOICE="en-GB-Wavenet-F"
-DEFAULT_VOICE="ru-RU-Wavenet-E"
+#DEFAULT_VOICE="ru-RU-Wavenet-E"
 
 class TTS():
-    def __init__(self, file: str, directory:str, voice: str=None, volume:int=VOLUME, filter:int=None, highpass=None, lowpass=None, noise=None):
+    def __init__(self, file: str, directory:str, voice: str=None, volume:int=VOLUME, nfilter:int=None, highpass=None, lowpass=None, noise=None, clickin=None, clickout=None):
 
         self.file=file
         self.directory=directory
         self.voice=DEFAULT_VOICE if pd.isna(voice) else voice
         self.volume=int(volume) if pd.notna(volume) else VOLUME
-        self.filter=int(filter) if pd.notna(filter) else NFILTER
+        self.nfilter=int(nfilter) if pd.notna(nfilter) else NFILTER
         self.highpass=int(highpass) if pd.notna(highpass) else HIGHPASS
         self.lowpass=int(lowpass) if pd.notna(lowpass) else LOWPASS
         self.noise=int(noise) if pd.notna(noise) else None
@@ -50,8 +49,21 @@ class TTS():
             print()
             #quit()
 
-        self._IN_WAV="./In.wav"
-        self._OUT_WAV="./Out.wav"
+        _clickIn=Path("./assets/In.wav")
+        _clickOut=Path("./assets/Out.wav")
+
+        # Radio click sounds
+        self.clickIn:AudioSegment=None
+        self.clickOut:AudioSegment=None
+
+        _click_volume_decrease=5
+
+        if pd.notna(clickin):
+            self.clickIn=AudioSegment.from_wav(_clickIn.absolute()) - _click_volume_decrease  # reduce volume
+        
+        if pd.notna(clickout):
+            self.clickOut=AudioSegment.from_wav(_clickOut.absolute()) - _click_volume_decrease  # reduce volume
+
 
     # Adds a couple filters, and adds static, and clicks to end/beginning of track
     def addRadioNoiseFilters(self, audio: AudioSegment):
@@ -61,16 +73,11 @@ class TTS():
         _trim_trailing_silence: AudioSegment = lambda x: _trim_leading_silence(x.reverse()).reverse()
         _strip_silence: AudioSegment = lambda x: _trim_trailing_silence(_trim_leading_silence(x))
 
-        #in_Wave = AudioSegment.from_wav(self._IN_WAV)   - self._click_volume_decrease  # reduce volume
-        #out_Wave = AudioSegment.from_wav(self._OUT_WAV) - self._click_volume_decrease  # reduce volume
-
         # Apply high and low pass filters
-        for _ in range(self.filter):
+        for _ in range(self.nfilter):
             if self.highpass>=0:
-                print(f"highpass = {self.highpass}")
                 audio=audio.high_pass_filter(self.highpass)
             if self.lowpass>=0:
-                print(f"lowpass = {self.lowpass}")
                 audio=audio.low_pass_filter(self.lowpass)
 
             # Normalize audio after applying filter(s)
@@ -79,7 +86,11 @@ class TTS():
         # Strip leading/trailing silence
         audio = _strip_silence(audio)
 
-        #combined = in_Wave + filtered + out_Wave  # concatenate
+        # Click sounds
+        if self.clickIn is not None:
+            audio = self.clickIn + audio
+        if self.clickOut is not None:
+            audio = audio + self.clickOut
 
         # White noise
         if self.noise is not None:
@@ -178,13 +189,13 @@ if __name__=='__main__':
 
     for file in Path('./').glob('*.xlsx'):
 
+        # Ignore excel temp files (opened files) and files that start with an underscore
         if file.name.startswith("~") or file.name.startswith("_"):
-            # Ignore excel temp files (opened files)
             continue
 
         print(f"* Processing file {file}")
 
-        COLS=["text", "filename", "subtitle", "voice", "highpass", "lowpass", "nfilter", "volume", "noise", "emphasis", "rate", "pitch"]
+        COLS=["text", "filename", "subtitle", "voice", "highpass", "lowpass", "nfilter", "volume", "noise", "emphasis", "rate", "pitch", "clickin", "clickout"]
 
         # Read excel into data frame
         df = pd.read_excel(file, header=None, names=COLS, skiprows=[0])
@@ -206,7 +217,8 @@ if __name__=='__main__':
         for idx, row in df.iterrows():
             print(f'file={row["filename"]}, voice={row["voice"]}, emphasis={row.emphasis}, rate={row.rate}, pitch={row.pitch}: {row["text"]} ')
 
-            tts=TTS(file=row.filename, directory=directory, voice=row.voice, volume=row.volume, filter=row["nfilter"], highpass=row.highpass, lowpass=row.lowpass, noise=row.noise)
+            tts=TTS(file=row.filename, directory=directory, voice=row.voice, volume=row.volume, nfilter=row["nfilter"], 
+                    highpass=row.highpass, lowpass=row.lowpass, noise=row.noise, clickin=row["clickin"], clickout=row["clickout"])
 
             audio=tts.tts(row.text, row.emphasis, row.rate, row.pitch)
 
@@ -215,8 +227,10 @@ if __name__=='__main__':
             df.at[idx, "voice"]=tts.voice
             df.at[idx, "highpass"]=tts.highpass
             df.at[idx, "lowpass"]=tts.lowpass
-            df.at[idx, "filter"]=tts.filter
+            df.at[idx, "nfilter"]=tts.nfilter
             df.at[idx, "noise"]=tts.noise
+            df.at[idx, "clickin"]=tts.clickIn
+            df.at[idx, "clickout"]=tts.clickOut
 
             duration.append(round(len(audio)/1000, 2))
 
@@ -225,11 +239,12 @@ if __name__=='__main__':
 
         # Save file
         print()
-        print("* Saving parameter file as csv and json")
-        df.to_csv(directory / "parameters.csv", index=False, sep=";", na_rep="nil")
-        df.to_json(directory / "parameters.json", index=False, orient="table", indent=4)
+        pfile=directory / f"parameters-{file.stem}.csv"
+        print(f"* Saving parameter csv file as {pfile}")
+        df.to_csv(pfile, index=False, sep=";", na_rep="nil")
+        #df.to_json(directory / f"parameters-{file.stem}.json", index=False, orient="table", indent=4)
         
 
-        print()
-        print("*** FIN ***")
-        print()
+    print()
+    print("*** FIN ***")
+    print()

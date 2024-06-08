@@ -1,7 +1,0 @@
-text;filename;subtitle;voice;highpass;lowpass;nfilter;volume;noise;emphasis;rate;pitch;filter;duration
-Advice on initial  contact, you have information;AdviceOnInitial;nil;ru-RU-Wavenet-E;4000.0;3000.0;nil;0.0;nil;nil;nil;nil;3.0;3.12
-Advice on initial  contact, you have information;AdviceOnInitial_nfilter1;nil;ru-RU-Wavenet-E;4000.0;3000.0;1.0;0.0;nil;nil;nil;nil;1.0;3.13
-Advice on initial  contact, you have information;AdviceOnInitial_nfilter2;nil;ru-RU-Wavenet-E;4000.0;3000.0;2.0;0.0;nil;nil;nil;nil;2.0;3.13
-Advice on initial  contact, you have information;AdviceOnInitial_noise;nil;ru-RU-Wavenet-E;4000.0;3000.0;nil;0.0;-25.0;nil;nil;nil;3.0;3.12
-Advice on initial  contact, you have information;AdviceOnInitial_3000-2000;nil;ru-RU-Wavenet-E;3000.0;2000.0;nil;0.0;nil;nil;nil;nil;3.0;3.12
-"<lang xml:lang=""en-US"">Advice on initial  contact, you have information</lang>";AdviceOnInitial_french;nil;ru-RU-Wavenet-E;4000.0;3000.0;nil;0.0;nil;nil;nil;nil;3.0;3.12

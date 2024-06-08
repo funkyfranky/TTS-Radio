@@ -1,0 +1,5 @@
+text;filename;subtitle;voice;highpass;lowpass;nfilter;volume;noise;emphasis;rate;pitch;clickin;clickout;filter;duration
+QFE;QFE;nil;en-GB-Wavenet-F;4000.0;3000.0;nil;0.0;nil;nil;nil;nil;nil;nil;3.0;1.0
+"<say-as interpret-as=""verbatim"">QFE</say-as>";QFE_verbatim;nil;en-GB-Wavenet-F;4000.0;3000.0;nil;0.0;nil;nil;nil;nil;x;nil;3.0;1.5
+"<say-as interpret-as=""characters"">QFE</say-as>";QFE_characters;nil;en-GB-Wavenet-F;4000.0;3000.0;nil;0.0;nil;nil;nil;nil;nil;x;3.0;1.26
+QFE;QFE_moderate;nil;en-GB-Wavenet-F;4000.0;3000.0;nil;0.0;nil;moderate;nil;nil;nil;nil;3.0;1.12
