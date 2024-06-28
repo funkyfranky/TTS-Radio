@@ -1,12 +1,13 @@
 import os
 import shutil
+import argparse
 from pathlib import Path
 from google.cloud import texttospeech
 from pydub import AudioSegment, generators, silence, effects
 import pandas as pd
 
-# Set google credentials from JSON file
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "F:/google-tts.json"
+# Default google credentials file
+CREDENTIALS="F:/google-tts.json2"
 
 # Default voice (used if no voice specified in Voice Name column)
 DEFAULT_VOICE="en-US-Studio-O"
@@ -18,12 +19,15 @@ DEFAULT_VOICE="en-GB-Wavenet-F"
 HIGHPASS=4000
 LOWPASS=3000
 
-# Number of times to apply high/low pass filters
+# Number of times to apply high/low pass filters. Default 3.
 NFILTER=3
 
 # Volume boost
-NOISE_BOOST  = -25   # Volume adjustment [dB] for white noise
-VOLUME       =   0   # Volume adjustment [dB] for whole autio after (filters and noise)
+NOISE_BOOST  = -25   # Volume adjustment [dB] for white noise. Default -25 dB.
+VOLUME       =   0   # Volume adjustment [dB] for whole autio after (filters and noise). Default 0 dB.
+
+# Column names (do not change!)
+COLS=["text", "filename", "subtitle", "voice", "highpass", "lowpass", "nfilter", "volume", "noise", "emphasis", "rate", "pitch", "clickin", "clickout"]
 
 class TTS():
     def __init__(self, file: str, directory:str, voice: str=None, volume:int=VOLUME, nfilter:int=None, highpass=None, lowpass=None, noise=None, clickin=None, clickout=None):
@@ -36,18 +40,6 @@ class TTS():
         self.highpass=int(highpass) if pd.notna(highpass) else HIGHPASS
         self.lowpass=int(lowpass) if pd.notna(lowpass) else LOWPASS
         self.noise=int(noise) if pd.notna(noise) else None
-
-        if False:
-            print(f"File={self.file}")
-            print(f"Directory={self.directory}")
-            print(f"Voice={self.voice}")        
-            print(f"Highpass={self.highpass}")
-            print(f"Lowpass={self.lowpass}")
-            print(f"Volume={self.volume}")
-            print(f"Filter={self.nfilter}")
-            print(f"Noise={self.noise}")
-            print()
-            #quit()
 
         _clickIn=Path("./assets/In.wav")
         _clickOut=Path("./assets/Out.wav")
@@ -104,7 +96,7 @@ class TTS():
         # Normalize audio after applying noise
         audio=effects.normalize(audio)            
 
-        # Bumb volume of all audio.
+        # Bump volume of all audio.
         audio = audio + self.volume
 
         return audio
@@ -155,9 +147,7 @@ class TTS():
         voice=texttospeech.VoiceSelectionParams(language_code=self.voice[0:5], name=self.voice)
 
         # Audio config.
-        audio=texttospeech.AudioConfig(
-            audio_encoding=texttospeech.AudioEncoding.MP3
-        )
+        audio=texttospeech.AudioConfig(audio_encoding=texttospeech.AudioEncoding.MP3)
 
         # Convert text to speech.
         speech=client.synthesize_speech(input=blabla, voice=voice, audio_config=audio)
@@ -183,22 +173,58 @@ class TTS():
 
 if __name__=='__main__':
 
+    print()
     print("Text-To-Speech")
     print("==============")
     print()
 
-    for file in Path('./').glob('*.xlsx'):
+    parser=argparse.ArgumentParser(description="MTTS arg parser")
+    parser.add_argument("--credentials", default=None, type=str, nargs="?")
+    parser.add_argument("--filetype", default="xlsx", nargs="?", choices=["xlsx", "csv"])
+    parser.add_argument("--directory", default="./", nargs="?")
+
+    args=parser.parse_args()
+
+    if args.credentials is not None:        
+        # Set google credentials from JSON file
+        credentials=args.credentials
+    else:
+        credentials=CREDENTIALS
+    print(f"- Google credentials file: {credentials}")
+    if not Path(credentials).is_file():
+        raise FileExistsError(f"File {credentials} does not exist!")
+
+    # Set credentials env variable.
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = credentials
+
+    if args.filetype is not None:
+        filetype=args.filetype
+    else:
+        filetype="xlsx"
+    print(f"- data input file type: {filetype}")
+
+    if args.directory is not None:
+        inputdir=args.directory
+    else:
+        inputdir="./"
+    print(f"- Input directory of {filetype} files: {inputdir}")
+    if not Path(inputdir).is_dir():
+        raise FileExistsError(f"Directory {inputdir} does not exist!")
+    print()
+
+    for file in Path(inputdir).glob(f'*.{filetype}'):
 
         # Ignore excel temp files (opened files) and files that start with an underscore
         if file.name.startswith("~") or file.name.startswith("_"):
             continue
-
-        print(f"* Processing file {file}")
-
-        COLS=["text", "filename", "subtitle", "voice", "highpass", "lowpass", "nfilter", "volume", "noise", "emphasis", "rate", "pitch", "clickin", "clickout"]
+        else:
+            print(f"* Processing file {file.absolute()}")
 
         # Read excel into data frame
-        df = pd.read_excel(file, header=None, names=COLS, skiprows=[0])
+        if filetype=="xlsx":
+            df = pd.read_excel(file, header=None, names=COLS, skiprows=[0])
+        elif filetype=="csv":
+            df = pd.read_csv(file, header=None, names=COLS, skiprows=[0])
 
         print(df.head())
         print()
@@ -244,9 +270,7 @@ if __name__=='__main__':
         print()
         pfile=directory / f"parameters-{file.stem}.csv"
         print(f"* Saving parameter csv file as {pfile}")
-        df.to_csv(pfile, index=False, sep=";", na_rep="nil")
-        #df.to_json(directory / f"parameters-{file.stem}.json", index=False, orient="table", indent=4)
-        
+        df.to_csv(pfile, index=False, sep=";", na_rep="nil")        
 
     print()
     print("*** FIN ***")
