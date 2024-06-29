@@ -7,7 +7,7 @@ from pydub import AudioSegment, generators, silence, effects
 import pandas as pd
 
 # Default google credentials file
-CREDENTIALS="F:/google-tts.json2"
+CREDENTIALS="F:/google-tts.json"
 
 # Default voice (used if no voice specified in Voice Name column)
 DEFAULT_VOICE="en-US-Studio-O"
@@ -181,7 +181,8 @@ if __name__=='__main__':
     parser=argparse.ArgumentParser(description="MTTS arg parser")
     parser.add_argument("--credentials", default=None, type=str, nargs="?")
     parser.add_argument("--filetype", default="xlsx", nargs="?", choices=["xlsx", "csv"])
-    parser.add_argument("--directory", default="./", nargs="?")
+    parser.add_argument("--inputdir", default="./", nargs="?")
+    parser.add_argument("--inputfile", default=None, type=str, nargs="?")
 
     args=parser.parse_args()
 
@@ -203,16 +204,22 @@ if __name__=='__main__':
         filetype="xlsx"
     print(f"- data input file type: {filetype}")
 
-    if args.directory is not None:
-        inputdir=args.directory
+    if args.inputdir is not None:
+        inputdir=args.inputdir
     else:
         inputdir="./"
     print(f"- Input directory of {filetype} files: {inputdir}")
     if not Path(inputdir).is_dir():
         raise FileExistsError(f"Directory {inputdir} does not exist!")
+    if args.inputfile is not None:
+        inputfiles=[Path(args.inputfile)]
+    else:
+        inputfiles=Path(inputdir).glob(f'*.{filetype}')
+    print(f"- Input files: {inputfiles}")
     print()
 
-    for file in Path(inputdir).glob(f'*.{filetype}'):
+    # Loop over intput files
+    for file in inputfiles:
 
         # Ignore excel temp files (opened files) and files that start with an underscore
         if file.name.startswith("~") or file.name.startswith("_"):
@@ -221,10 +228,12 @@ if __name__=='__main__':
             print(f"* Processing file {file.absolute()}")
 
         # Read excel into data frame
-        if filetype=="xlsx":
+        if file.suffix==".xlsx":
             df = pd.read_excel(file, header=None, names=COLS, skiprows=[0])
-        elif filetype=="csv":
-            df = pd.read_csv(file, header=None, names=COLS, skiprows=[0])
+        elif file.suffix==".csv":
+            df = pd.read_csv(file, header=None, names=COLS, skiprows=[0], delimiter=";")
+        else:
+            raise NotImplementedError(f"Unknown file type {file.suffix}")
 
         print(df.head())
         print()
