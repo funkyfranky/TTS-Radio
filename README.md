@@ -42,16 +42,24 @@ The following command line parameters can be used:
 * `--credentials`: Path to your Google credentials file.
 
 ### Specify File Type
+Process only csv files in the current directory
 ```
 python mtts.py --filetype csv
 ```
 ### Specify Input Directory
+Process all xlsx and csv files in a certain directory
 ```
 python mtts.py --inputdir <Path To Input Files>
 ```
 ### Specify Input File
+Process only one specific input file
 ```
 python mtts.py --inputfile <Path to Input File>
+```
+### Specify Voice
+Use a specific voice for all input files (overrules setting in input files)
+```
+python mtts.py --voice en-GB-Wavenet-F
 ```
 
 # MOOSE Classes
