@@ -177,9 +177,10 @@ if __name__=='__main__':
 
     parser=argparse.ArgumentParser(description="MTTS arg parser")
     parser.add_argument("--credentials", default=None, type=str, nargs="?")
-    parser.add_argument("--filetype", default="xlsx", nargs="?", choices=["xlsx", "csv"])
+    parser.add_argument("--filetype", default=None, nargs="?", choices=["xlsx", "csv"])
     parser.add_argument("--inputdir", default="./", nargs="?")
     parser.add_argument("--inputfile", default=None, type=str, nargs="?")
+    parser.add_argument("--voice", default=None, type=str, nargs="?")
 
     args=parser.parse_args()
 
@@ -199,10 +200,12 @@ if __name__=='__main__':
 
     if args.filetype is not None:
         filetype=args.filetype
+        print("Hallo")
     else:
-        filetype="xlsx"
+        filetype="xlsx, csv"
     print(f"- data input file type: {filetype}")
 
+    # Set intput dir
     if args.inputdir is not None:
         inputdir=args.inputdir
     else:
@@ -210,11 +213,24 @@ if __name__=='__main__':
     print(f"- Input directory of {filetype} files: {inputdir}")
     if not Path(inputdir).is_dir():
         raise FileExistsError(f"Directory {inputdir} does not exist!")
+    
+    # Set input file
     if args.inputfile is not None:
         inputfiles=[Path(args.inputfile)]
     else:
-        inputfiles=Path(inputdir).glob(f'*.{filetype}')
+        if args.filetype is not None:
+            inputfiles=Path(inputdir).glob(f'*.{args.filetype}')
+        else:
+            inputfiles=Path(inputdir).glob('*.[xlsx csv]*')
     print(f"- Input files: {inputfiles}")
+
+    # Input voice
+    if args.voice is not None:
+        inputvoice=args.voice
+        print(f"- Voice (overrules): {inputvoice}")
+    else:
+        intputvoice=None
+
     print()
 
     # Loop over intput files
@@ -247,11 +263,18 @@ if __name__=='__main__':
             raise(f"Could not create directory {directory}")
         print()
 
+        # Loop over all rows in data frame
         duration=[]
         for idx, row in df.iterrows():
-            print(f'file={row["filename"]}, voice={row["voice"]}, emphasis={row.emphasis}, rate={row.rate}, pitch={row.pitch}: {row["text"]} ')
+            if inputvoice is None:
+                voice=row["voice"]
+            else:
+                voice=inputvoice
 
-            tts=TTS(file=row.filename, directory=directory, voice=row.voice, volume=row.volume, nfilter=row["nfilter"], 
+
+            print(f'file={row["filename"]}, voice={voice}, emphasis={row.emphasis}, rate={row.rate}, pitch={row.pitch}: {row["text"]} ')
+
+            tts=TTS(file=row.filename, directory=directory, voice=voice, volume=row.volume, nfilter=row["nfilter"], 
                     highpass=row.highpass, lowpass=row.lowpass, noise=row.noise, clickin=row["clickin"], clickout=row["clickout"])
             
             if pd.isna(row.text):
