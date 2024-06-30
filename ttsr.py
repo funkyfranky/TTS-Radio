@@ -203,14 +203,14 @@ if __name__=='__main__':
         filetype=args.filetype
     else:
         filetype="xlsx, csv"
-    print(f"- data input file type: {filetype}")
+    print(f"- Input file type: {filetype}")
 
     # Set intput dir
     if args.inputdir is not None:
         inputdir=args.inputdir
     else:
         inputdir="./"
-    print(f"- Input directory of {filetype} files: {inputdir}")
+    print(f"- Input directory: {inputdir}")
     if not Path(inputdir).is_dir():
         raise FileExistsError(f"Directory {inputdir} does not exist!")
     

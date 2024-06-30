@@ -1,3 +1,4 @@
+# Text-to-Speech Radio
 This python script converts text to speech using the Google Cloud engine. Furthermore, radio effects (high, low pass filters and white noise) can be added to the speech output.
 The input text is read from an Excel or csv file.
 
@@ -23,9 +24,9 @@ The `xlsx` or `csv` files need to have the following columns:
 * `Click Out`: Add a radio click at the end of the sound file.
 
 # Usage
-Change to the directory, where the mtts.py file is located and type
+Change to the directory, where the ttsr.py file is located and type
 ```
-python mtts.py --credentials X:\<Path to JSON file>\google-credentials.json
+python ttsr.py --credentials X:\<Path to JSON file>\google-credentials.json
 ```
 where the parameter `--credentials` points to your Google cloud credentials file. Alternatively, you can set the environment variable `GOOGLE_APPLICATION_CREDENTIALS` to point to the credentials file.
 
@@ -44,23 +45,29 @@ The following command line parameters can be used:
 ### Specify File Type
 Process only csv files in the current directory
 ```
-python mtts.py --filetype csv
+python ttsr.py --filetype csv
 ```
 ### Specify Input Directory
 Process all xlsx and csv files in a certain directory
 ```
-python mtts.py --inputdir <Path To Input Files>
+python ttsr.py --inputdir <Path To Input Files>
 ```
 ### Specify Input File
 Process only one specific input file
 ```
-python mtts.py --inputfile <Path to Input File>
+python ttsr.py --inputfile <Path to Input File>
 ```
 ### Specify Voice
 Use a specific voice for all input files (overrules setting in input files)
 ```
-python mtts.py --voice en-GB-Wavenet-F
+python ttsr.py --voice en-GB-Wavenet-F
 ```
+### Specify Noise
+Use a white noise for all input files (overrules setting in input files)
+```
+python ttsr.py --noise -25
+```
+The white noise volume is reduced by -25 dB.
 
 # MOOSE Classes
 The generated sound files can of course be used in DCS, when included in a mission miz file. Add the generated sound files to your mission (open the miz with 7-zip and drag & drop the folder).
