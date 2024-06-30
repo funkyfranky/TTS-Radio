@@ -6,9 +6,6 @@ from google.cloud import texttospeech
 from pydub import AudioSegment, generators, silence, effects
 import pandas as pd
 
-# Default google credentials file
-CREDENTIALS="F:/google-tts.json"
-
 # Default voice (used if no voice specified in Voice Name column)
 DEFAULT_VOICE="en-US-Studio-O"
 DEFAULT_VOICE="en-US-Standard-A"
@@ -187,16 +184,18 @@ if __name__=='__main__':
     args=parser.parse_args()
 
     if args.credentials is not None:        
-        # Set google credentials from JSON file
-        credentials=args.credentials
+        # Set credentials env variable.
+        os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = args.credentials        
     else:
-        credentials=CREDENTIALS
+        if "GOOGLE_APPLICATION_CREDENTIALS" in os.environ:
+            pass
+        else:
+            raise EnvironmentError("GOOGLE_APPLICATION_CREDENTIALS not set!")
+    # Check that credentials file exists
+    credentials=os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
     print(f"- Google credentials file: {credentials}")
     if not Path(credentials).is_file():
         raise FileExistsError(f"File {credentials} does not exist!")
-
-    # Set credentials env variable.
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = credentials
 
     if args.filetype is not None:
         filetype=args.filetype
