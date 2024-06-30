@@ -181,6 +181,7 @@ if __name__=='__main__':
     parser.add_argument("--inputdir", default="./", nargs="?")
     parser.add_argument("--inputfile", default=None, type=str, nargs="?")
     parser.add_argument("--voice", default=None, type=str, nargs="?")
+    parser.add_argument("--noise", default=None, type=int, nargs="?")
 
     args=parser.parse_args()
 
@@ -200,7 +201,6 @@ if __name__=='__main__':
 
     if args.filetype is not None:
         filetype=args.filetype
-        print("Hallo")
     else:
         filetype="xlsx, csv"
     print(f"- data input file type: {filetype}")
@@ -230,6 +230,14 @@ if __name__=='__main__':
         print(f"- Voice (overrules): {inputvoice}")
     else:
         intputvoice=None
+
+    # Input noise
+    if args.noise is not None:
+        inputnoise=args.noise
+        print(f"- Noise (overrules): {inputnoise}")
+    else:
+        intputnoise=None
+
 
     print()
 
@@ -271,11 +279,16 @@ if __name__=='__main__':
             else:
                 voice=inputvoice
 
+            if inputnoise is None:
+                noise=row["noise"]
+            else:
+                noise=inputnoise
+
 
             print(f'file={row["filename"]}, voice={voice}, emphasis={row.emphasis}, rate={row.rate}, pitch={row.pitch}: {row["text"]} ')
 
             tts=TTS(file=row.filename, directory=directory, voice=voice, volume=row.volume, nfilter=row["nfilter"], 
-                    highpass=row.highpass, lowpass=row.lowpass, noise=row.noise, clickin=row["clickin"], clickout=row["clickout"])
+                    highpass=row.highpass, lowpass=row.lowpass, noise=noise, clickin=row["clickin"], clickout=row["clickout"])
             
             if pd.isna(row.text):
                 continue
