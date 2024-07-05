@@ -7,10 +7,8 @@ from pydub import AudioSegment, generators, silence, effects
 import pandas as pd
 
 # Default voice (used if no voice specified in Voice Name column)
-DEFAULT_VOICE="en-US-Studio-O"
+# Other voices might be "en-US-Studio-O", "en-GB-Wavenet-F", "ru-RU-Wavenet-E"
 DEFAULT_VOICE="en-US-Standard-A"
-DEFAULT_VOICE="en-GB-Wavenet-F"
-#DEFAULT_VOICE="ru-RU-Wavenet-E"
 
 # Default High and low pass filter values [Hz]
 HIGHPASS=4000
@@ -205,7 +203,7 @@ if __name__=='__main__':
         filetype="xlsx, csv"
     print(f"- Input file type: {filetype}")
 
-    # Set intput dir
+    # Set input dir
     if args.inputdir is not None:
         inputdir=args.inputdir
     else:
@@ -229,14 +227,14 @@ if __name__=='__main__':
         inputvoice=args.voice
         print(f"- Voice (overrules): {inputvoice}")
     else:
-        intputvoice=None
+        inputvoice=None
 
     # Input noise
     if args.noise is not None:
         inputnoise=args.noise
         print(f"- Noise (overrules): {inputnoise}")
     else:
-        intputnoise=None
+        inputnoise=None
 
 
     print()
