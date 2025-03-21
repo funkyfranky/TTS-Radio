@@ -9,7 +9,7 @@ You need to have python and pip installed. Furthermore, the script requires the 
 * pandas
 
 # Data Table
-The input data is provided as a table in either `xlsx` or `csv format:
+The input data is provided as a table in either `xlsx` or `csv` format:
 
 ![image](https://github.com/funkyfranky/MTTS/assets/28947887/79ca2b46-cd24-493e-84c4-598ef34b3958)
 
@@ -39,7 +39,7 @@ where the parameter `--credentials` points to your Google cloud credentials file
 This will scan the current directory for all `xlsx` and `csv `files and start the conversion process.
 For each input file, a directory named as the input file is created that contains the sound `.ogg` files.
 Additionally, a `csv` file with the parameters is created that also contains the duration of the sound file as additional column.
-This `csv` file can be used as input for various MOOSE classes (e.g. ATIS, RANGE, AIRBOSS) as described below.
+This `csv` file can be used as input for various MOOSE classes (*e.g.* ATIS, RANGE, AIRBOSS) as described below.
 
 ## Command Line Parameters
 The following command line parameters can be used:

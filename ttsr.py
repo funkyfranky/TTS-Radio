@@ -148,7 +148,8 @@ class TTS():
         speech=client.synthesize_speech(input=blabla, voice=voice, audio_config=audio)
 
         # Write output file as mp3.
-        file="./"+self.file+".mp3"
+        file="./"+str(self.file)+".mp3"
+        print(file)
         with open(file, "wb") as output:
             output.write(speech.audio_content)
 
@@ -159,7 +160,7 @@ class TTS():
         audio:AudioSegment=self.addRadioNoiseFilters(audio)
 
         # Save as ogg.
-        audio.export(self.directory / (self.file+".ogg"), format='ogg')
+        audio.export(self.directory / (str(self.file)+".ogg"), format='ogg')
 
         # Remove mp3 file.
         os.remove(file)
@@ -254,9 +255,10 @@ if __name__=='__main__':
         elif file.suffix==".csv":
             df = pd.read_csv(file, header=None, names=COLS, skiprows=[0], delimiter=";")
         else:
+            print(f"Unknown file type {file.suffix}")
             raise NotImplementedError(f"Unknown file type {file.suffix}")
 
-        print(df.head())
+        print(df.head(20))
         print()
 
         directory=Path("./"+file.stem+"/")

@@ -1,0 +1,45 @@
+text;filename;subtitle;voice;highpass;lowpass;nfilter;volume;noise;emphasis;rate;pitch;clickin;clickout;duration
+Zero;IR-0;nil;en-GB-Wavenet-F;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;0.59
+One;IR-1;nil;en-GB-Wavenet-F;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;0.43
+Two;IR-2;nil;en-GB-Wavenet-F;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;0.46
+Three;IR-3;nil;en-GB-Wavenet-F;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;0.45
+Four;IR-4;nil;en-GB-Wavenet-F;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;0.51
+Five;IR-5;nil;en-GB-Wavenet-F;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;0.58
+Six;IR-6;nil;en-GB-Wavenet-F;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;0.65
+Seven;IR-7;nil;en-GB-Wavenet-F;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;0.51
+Eight;IR-8;nil;en-GB-Wavenet-F;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;0.48
+Niner;IR-9;nil;en-GB-Wavenet-F;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;0.54
+Decimal;IR-Decimal;nil;en-GB-Wavenet-F;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;0.59
+You entered a bombing range. For hit assessment contact the range control on;IR-EnterRange;nil;en-GB-Wavenet-F;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;4.55
+You left the bombing range zone. Have a nice day.;IR-ExitRange;nil;en-GB-Wavenet-F;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;2.92
+mega hertz;IR-MegaHertz;nil;en-GB-Wavenet-F;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;0.97
+Zero;RC-0;nil;en-US-Wavenet-J;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;0.48
+One;RC-1;nil;en-US-Wavenet-J;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;0.36
+Two;RC-2;nil;en-US-Wavenet-J;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;0.33
+Three;RC-3;nil;en-US-Wavenet-J;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;0.39
+Four;RC-4;nil;en-US-Wavenet-J;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;0.45
+Five;RC-5;nil;en-US-Wavenet-J;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;0.45
+Six;RC-6;nil;en-US-Wavenet-J;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;0.59
+Seven;RC-7;nil;en-US-Wavenet-J;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;0.45
+Eight;RC-8;nil;en-US-Wavenet-J;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;0.33
+Niner;RC-9;nil;en-US-Wavenet-J;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;0.47
+accuracy;RC-Accuracy;nil;en-US-Wavenet-J;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;0.65
+degrees;RC-Degrees;nil;en-US-Wavenet-J;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;0.71
+excellent hit;RC-ExcellentHit;nil;en-US-Wavenet-J;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;0.79
+excellent pass;RC-ExcellentPass;nil;en-US-Wavenet-J;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;1.03
+feet;RC-Feet;nil;en-US-Wavenet-J;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;0.4
+for;RC-For;nil;en-US-Wavenet-J;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;0.45
+Good hit;RC-GoodHit;nil;en-US-Wavenet-J;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;0.51
+Good pass;RC-GoodPass;nil;en-US-Wavenet-J;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;0.73
+Hits on target;RC-HitsOnTarget;nil;en-US-Wavenet-J;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;0.97
+Impact;RC-Impact;nil;en-US-Wavenet-J;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;0.59
+Ineffective hit;RC-IneffectiveHit;nil;en-US-Wavenet-J;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;0.96
+Ineffective pass;RC-IneffectivePass;nil;en-US-Wavenet-J;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;1.2
+Invalid hit! You already passed the foul line.;RC-InvalidHit;nil;en-US-Wavenet-J;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;2.68
+You left the strafing zone too quickly. No score.;RC-LeftStrafePitTooQuickly;nil;en-US-Wavenet-J;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;3.22
+percent;RC-Percent;nil;en-US-Wavenet-J;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;0.55
+Poor hit.;RC-PoorHit;nil;en-US-Wavenet-J;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;0.6
+Poor pass.;RC-PoorPass;nil;en-US-Wavenet-J;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;0.81
+Rolling in on strafe target;RC-RollingInOnStrafeTarget;nil;en-US-Wavenet-J;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;1.74
+Total rounds fired;RC-TotalRoundsFired;nil;en-US-Wavenet-J;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;1.27
+Weapon impacted too far from the nearest range target. No score.;RC-WeaponImpactedTooFar;nil;en-US-Wavenet-J;4000.0;3000.0;3.0;0.0;nil;nil;nil;nil;nil;nil;4.09
